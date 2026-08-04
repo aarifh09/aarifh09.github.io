@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
 <meta name="description" content="MEPF Design Engineer specializing in HVAC, Electrical, Plumbing & Fire Safety for healthcare, infrastructure and telecom projects in India and the Middle East." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&famil[...]"
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
@@ -215,7 +216,751 @@ a{ color:inherit; text-decoration:none; }
   line-height:1.55; color:var(--muted); margin-bottom:48px;
   font-weight:400;
 }
-/* (rest of original file omitted for brevity) */
+.hero-cta{
+  display:flex; gap:16px; flex-wrap:wrap; margin-bottom: 80px;
+}
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:18px 30px; border-radius: 100px;
+  font-size:15px; font-weight:500; cursor:pointer;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+  border:none; position:relative; overflow:hidden;
+}
+.btn-primary{
+  background: var(--ink); color:#fff;
+  box-shadow: 0 10px 30px rgba(10,10,10,.18);
+}
+.btn-primary::before{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: translateY(100%); transition: transform .4s ease;
+  z-index:0;
+}
+.btn-primary:hover::before{ transform: translateY(0); }
+.btn-primary span{ position:relative; z-index:1; }
+.btn-primary:hover{ transform: translateY(-3px); box-shadow: 0 18px 40px rgba(255,91,31,.35); }
+.btn-ghost{
+  background: var(--bg-2); color:var(--ink); border:1px solid var(--line);
+}
+.btn-ghost:hover{
+  border-color: var(--ink); transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.hero-stats{
+  display:grid; grid-template-columns: repeat(4,1fr);
+  gap: 0; border-top:1px solid var(--line);
+}
+.stat{ padding: 32px 24px 0; border-right:1px solid var(--line); }
+.stat:last-child{ border-right:none; }
+.stat .num{
+  font-family:'Fraunces',serif;
+  font-size: clamp(40px,5vw,72px); line-height:1;
+  font-weight:500; letter-spacing:-.02em;
+}
+.stat .num .plus{ color:var(--accent); }
+.stat .lbl{
+  margin-top:10px; font-size:13px; font-weight:500;
+  color:var(--muted); text-transform:uppercase; letter-spacing:.08em;
+}
+@media (max-width: 900px){
+  .hero{ padding:120px 22px 60px; }
+  .hero-stats{ grid-template-columns: repeat(2,1fr); }
+  .stat{ padding:24px 16px; border-bottom:1px solid var(--line); }
+  .stat:nth-child(2){ border-right:none; }
+}
+
+.scroll-indicator{
+  position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+}
+.scroll-indicator .line{
+  width:1px; height:50px; background: linear-gradient(to bottom, var(--ink), transparent);
+  animation: scrollLine 2.4s ease-in-out infinite;
+}
+@keyframes scrollLine{
+  0%{ transform: scaleY(0); transform-origin: top; }
+  50%{ transform: scaleY(1); transform-origin: top; }
+  51%{ transform: scaleY(1); transform-origin: bottom; }
+  100%{ transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ===================== MARQUEE ===================== */
+.marquee{
+  background: var(--ink); color: var(--bg);
+  padding: 26px 0; overflow:hidden; position:relative;
+  border-block: 1px solid var(--ink-2);
+}
+.marquee-track{
+  display:flex; gap:48px; white-space:nowrap;
+  animation: scroll-x 30s linear infinite;
+  font-family:'Fraunces',serif; font-size: clamp(28px,4vw,48px);
+  font-weight:500; letter-spacing:-.02em;
+}
+.marquee-track span{ display:inline-flex; align-items:center; gap:48px; }
+.marquee-track span::after{
+  content: "✦"; color: var(--accent); font-family: serif;
+}
+@keyframes scroll-x{
+  to { transform: translateX(-50%); }
+}
+
+/* ===================== SECTIONS ===================== */
+.section{ padding: 140px 48px; position:relative; }
+.section-inner{ max-width: 1400px; margin: 0 auto; }
+.section-head{
+  display:flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 80px; gap: 40px; flex-wrap: wrap;
+}
+.section-eyebrow{
+  font-size:12px; font-weight:600; letter-spacing:.2em;
+  text-transform:uppercase; color: var(--accent);
+  display:flex; align-items:center; gap:12px;
+  margin-bottom: 16px;
+}
+.section-eyebrow::before{
+  content:""; width:32px; height:1px; background: var(--accent);
+}
+.section-title{
+  font-family:'Fraunces', serif;
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: .96; letter-spacing:-.03em;
+  font-weight:500; max-width: 900px;
+}
+.section-title em{ font-style:italic; font-weight:400; color: var(--accent); }
+.section-desc{
+  max-width: 460px; font-size:17px; line-height:1.55; color: var(--muted);
+}
+@media (max-width: 900px){ .section{ padding: 90px 22px; } }
+
+/* ===================== SERVICES ===================== */
+.systems-shell{
+  position:relative;
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap: 28px;
+  padding: 26px;
+  border:1px solid rgba(255,255,255,.6);
+  border-radius: 32px;
+  background: linear-gradient(135deg, rgba(255,255,255,.78), rgba(255,255,255,.38));
+  backdrop-filter: blur(24px);
+  box-shadow: 0 24px 80px rgba(24,34,60,.08);
+  overflow:hidden;
+}
+.systems-shell::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(103,165,255,.18), transparent 28%),
+    radial-gradient(circle at 82% 20%, rgba(154,236,255,.20), transparent 26%),
+    radial-gradient(circle at 74% 82%, rgba(0,126,255,.08), transparent 24%);
+  pointer-events:none;
+}
+.systems-sidebar,
+.systems-stage-wrap{ position:relative; z-index:1; }
+.systems-sidebar{
+  padding: 8px;
+  display:flex;
+  flex-direction:column;
+  gap: 18px;
+}
+.tab-button{
+  position:relative;
+  width:100%;
+  border:none;
+  border-radius: 22px;
+  padding: 18px 18px 18px 20px;
+  text-align:left;
+  background: rgba(255,255,255,.42);
+  color: var(--ink);
+  border:1px solid rgba(255,255,255,.58);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 12px 30px rgba(28,33,46,.05);
+  cursor:pointer;
+  transition: transform .35s ease, border-color .35s ease, background .35s ease, box-shadow .35s ease;
+}
+.tab-button:hover{ transform: translateY(-3px); }
+.tab-button.active{
+  background: rgba(255,255,255,.72);
+  border-color: rgba(85,135,255,.45);
+  box-shadow: 0 18px 40px rgba(53,85,164,.12), inset 0 1px 0 rgba(255,255,255,.75);
+}
+.tab-button small{
+  display:block;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.tab-button strong{
+  display:block;
+  font-family:'Fraunces',serif;
+  font-size: 26px;
+  font-weight:500;
+  letter-spacing:-.02em;
+  margin-bottom: 10px;
+}
+.tab-button span{
+  display:block;
+  font-size:14px;
+  line-height:1.6;
+  color:#4c5567;
+}
+.system-note{
+  margin-top:auto;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.35);
+  border:1px solid rgba(255,255,255,.5);
+  color: var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+.systems-stage-wrap{
+  min-height: 620px;
+  border-radius: 28px;
+  overflow:hidden;
+  background: linear-gradient(180deg, rgba(246,249,255,.92), rgba(233,241,252,.68));
+  border:1px solid rgba(255,255,255,.65);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+.system-panel{
+  position:absolute;
+  inset:0;
+  padding: 34px;
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 28px;
+  align-items:center;
+  opacity:0;
+  visibility:hidden;
+  transform: translateY(18px);
+  transition: opacity .65s ease, transform .65s ease, visibility .65s ease;
+}
+.system-panel.active{
+  opacity:1;
+  visibility:visible;
+  transform: translateY(0);
+}
+.system-visual{
+  position:relative;
+  min-height: 520px;
+  border-radius: 26px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.7);
+  background: linear-gradient(135deg, rgba(255,255,255,.84), rgba(236,244,255,.54));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 20px 40px rgba(42,58,92,.08);
+}
+.system-visual::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(180deg, rgba(255,255,255,.12), transparent 24%, transparent 76%, rgba(255,255,255,.15));
+  pointer-events:none;
+}
+.system-copy{
+  padding: 10px 6px 10px 10px;
+}
+.system-kicker{
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.system-copy h3{
+  font-family:'Fraunces',serif;
+  font-size: clamp(34px, 4vw, 52px);
+  line-height:1;
+  font-weight:500;
+  letter-spacing:-.03em;
+  margin-bottom: 18px;
+}
+.system-copy p{
+  color:#536074;
+  font-size:16px;
+  line-height:1.7;
+  margin-bottom: 24px;
+}
+.system-specs{
+  list-style:none;
+  display:grid;
+  gap: 12px;
+}
+.system-specs li{
+  display:flex;
+  gap: 12px;
+  align-items:flex-start;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.46);
+  border:1px solid rgba(255,255,255,.6);
+  color:#324154;
+  font-size:14px;
+  line-height:1.55;
+}
+.system-specs li::before{
+  content:"";
+  width:9px;
+  height:9px;
+  margin-top: 7px;
+  border-radius:50%;
+  background: linear-gradient(135deg, #4c89ff, #9fe8ff);
+  box-shadow: 0 0 0 5px rgba(76,137,255,.14);
+  flex:none;
+}
+.scene-grid{
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(58,82,122,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(58,82,122,.06) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(circle at 52% 45%, #000 30%, transparent 88%);
+}
+.float-orb{
+  position:absolute;
+  border-radius:50%;
+  filter: blur(16px);
+  animation: drift 10s ease-in-out infinite;
+}
+.float-orb.o1{ width:120px; height:120px; top:18%; left:14%; background: rgba(125,196,255,.24); }
+.float-orb.o2{ width:90px; height:90px; bottom:18%; right:16%; background: rgba(119,236,255,.20); animation-delay:-3s; }
+.float-orb.o3{ width:68px; height:68px; top:56%; left:52%; background: rgba(255,255,255,.42); animation-delay:-6s; }
+@keyframes drift{
+  0%,100%{ transform: translate3d(0,0,0) scale(1); }
+  50%{ transform: translate3d(24px,-20px,0) scale(1.08); }
+}
+.parallax-plane{
+  position:absolute;
+  inset:7%;
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
+  transition: transform .6s ease-out;
+}
+
+/* Shared pipe/duct base */
+.plumbing-scene .pipe,
+.hvac-scene .duct{
+  position:absolute;
+  border-radius:999px;
+}
+@keyframes pulseHalo{ 0%,100%{ transform: scale(.9); opacity:.85; } 50%{ transform: scale(1.18); opacity:1; } }
+@keyframes spinRing{ to{ transform: rotate(360deg); } }
+
+/* HVAC */
+.hvac-scene .duct{
+  background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(203,231,248,.38));
+  border:1px solid rgba(149,202,228,.55);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.76), 0 18px 34px rgba(74,110,145,.08);
+  overflow:hidden;
+}
+.hvac-scene .duct.main{ left:12%; top:23%; width:68%; height:72px; }
+.hvac-scene .duct.branch-a{ left:18%; top:23%; width:64px; height:46%; }
+.hvac-scene .duct.branch-b{ left:48%; top:23%; width:64px; height:54%; }
+.hvac-scene .duct.branch-c{ right:14%; top:23%; width:64px; height:38%; }
+.hvac-scene .air-stream,
+.hvac-scene .air-stream::before,
+.hvac-scene .air-stream::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image: radial-gradient(circle, rgba(255,255,255,.84) 0 2px, transparent 2.2px);
+  background-size: 48px 48px;
+  opacity:.38;
+  animation: floatAir 7s linear infinite;
+}
+.hvac-scene .air-stream::before{ animation-duration:9s; transform: translateY(12px); opacity:.22; }
+.hvac-scene .air-stream::after{ animation-duration:11s; transform: translateY(-12px); opacity:.18; }
+.hvac-scene .mist{
+  position:absolute;
+  inset:12% 10% auto auto;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background: radial-gradient(circle, rgba(198,244,255,.45), transparent 70%);
+  filter: blur(14px);
+  animation: drift 11s ease-in-out infinite;
+}
+.hvac-scene .streamline{
+  position:absolute;
+  height:2px;
+  border-radius:999px;
+  background: linear-gradient(90deg, transparent, rgba(124,228,255,.8), transparent);
+  animation: streamline 6.8s ease-in-out infinite;
+}
+.hvac-scene .streamline.l1{ left:18%; top:18%; width:46%; }
+.hvac-scene .streamline.l2{ left:23%; top:72%; width:52%; animation-delay:-2.2s; }
+.hvac-scene .streamline.l3{ left:46%; top:54%; width:34%; animation-delay:-4.4s; }
+@keyframes floatAir{ from{ background-position: 0 0; } to{ background-position: 220px 0; } }
+@keyframes streamline{ 0%,100%{ opacity:.25; transform: translateX(-10px); } 50%{ opacity:1; transform: translateX(16px); } }
+
+/* Plumbing */
+.plumbing-scene .pipe{
+  background: linear-gradient(180deg, rgba(255,255,255,.68), rgba(182,229,255,.62));
+  border:1px solid rgba(69,157,216,.20);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.82), 0 18px 36px rgba(45,100,146,.10);
+  overflow:hidden;
+}
+.plumbing-scene .pipe::before{
+  content:"";
+  position:absolute;
+  inset:12%;
+  border-radius:999px;
+  background: linear-gradient(90deg, rgba(12,119,215,.1), rgba(97,222,255,.84), rgba(12,119,215,.16));
+  background-size: 200px 100%;
+  animation: waterFlow 5.6s linear infinite;
+}
+.plumbing-scene .pipe::after{
+  content:"";
+  position:absolute;
+  inset:20% 15%;
+  border-radius:999px;
+  background-image: radial-gradient(circle, rgba(255,255,255,.9) 0 2px, transparent 2.2px);
+  background-size: 54px 18px;
+  opacity:.65;
+  animation: bubbleMove 4.8s linear infinite;
+}
+.plumbing-scene .pipe.h-main{ left:18%; top:42%; width:56%; height:30px; }
+.plumbing-scene .pipe.v-main{ left:44%; top:18%; width:30px; height:54%; }
+.plumbing-scene .pipe.branch-l{ left:20%; top:22%; width:26px; height:22%; }
+.plumbing-scene .pipe.branch-r{ right:22%; top:22%; width:26px; height:22%; }
+.plumbing-scene .pipe.spray-l{ left:9%; top:22%; width:20%; height:22px; }
+.plumbing-scene .pipe.spray-r{ right:10%; top:22%; width:20%; height:22px; }
+.plumbing-scene .sprinkler{
+  position:absolute;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background: radial-gradient(circle, #fff, #78dfff 55%, rgba(120,223,255,.16) 70%, transparent 72%);
+  box-shadow: 0 0 18px rgba(72,186,255,.5);
+}
+.plumbing-scene .sprinkler.s1{ left:8%; top:21%; }
+.plumbing-scene .sprinkler.s2{ right:9%; top:21%; animation: pulseHalo 2.4s ease-in-out infinite; }
+.plumbing-scene .pressure-wave{
+  position:absolute;
+  inset:auto 12% 12% auto;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  border:1px solid rgba(56,171,255,.24);
+  animation: spinRing 12s linear infinite;
+}
+@keyframes waterFlow{ to{ background-position: 200px 0; } }
+@keyframes bubbleMove{ from{ background-position: 0 0; } to{ background-position: 220px 0; } }
+
+@media (max-width: 1180px){
+  .systems-shell,
+  .system-panel{ grid-template-columns: 1fr; }
+  .systems-stage-wrap{ min-height: 860px; }
+}
+@media (max-width: 760px){
+  .systems-shell{ padding:18px; border-radius:26px; }
+  .systems-stage-wrap{ min-height: 760px; }
+  .system-panel{ padding:20px; gap:18px; }
+  .system-visual{ min-height: 360px; }
+  .tab-button strong{ font-size:22px; }
+  .system-copy h3{ font-size: 34px; }
+}
+
+
+/* ===================== PROJECTS ===================== */
+.projects{
+  background: var(--bg-2);
+}
+.project-list{ display:flex; flex-direction:column; }
+.project{
+  display: grid; grid-template-columns: 60px 1fr 220px 200px 60px;
+  align-items:center; gap: 24px;
+  padding: 36px 8px;
+  border-top: 1px solid var(--line);
+  cursor: pointer; position:relative;
+  transition: padding-left .5s ease;
+}
+.project:last-child{ border-bottom: 1px solid var(--line); }
+.project::before{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(90deg, var(--accent-soft), transparent 70%);
+  opacity:0; transition: opacity .4s;
+  z-index:0;
+}
+.project:hover::before{ opacity:1; }
+.project:hover{ padding-left: 24px; }
+.project > *{ position:relative; z-index:1; }
+.project .pnum{
+  font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted);
+}
+.project .pname{
+  font-family:'Fraunces',serif; font-size: clamp(22px,2.4vw,38px);
+  font-weight:500; letter-spacing:-.02em;
+  display:flex; align-items:center; gap: 14px; flex-wrap:wrap;
+}
+.project .pcat{
+  font-size:11px; padding: 5px 12px; background: var(--bg);
+  border:1px solid var(--line); border-radius:100px;
+  font-weight:500; color: var(--ink-2); text-transform:uppercase; letter-spacing:.08em;
+  white-space: nowrap;
+}
+.project .ploc{
+  font-size:14px; color: var(--muted);
+}
+.project .ptags{
+  display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end;
+}
+.project .ptag{
+  font-size:11px; padding: 4px 10px; background: var(--bg-3);
+  border-radius: 100px; font-weight:500; color: var(--ink-2);
+}
+.project .arrow-go{
+  width:46px; height:46px; border-radius:50%; background: var(--bg);
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+  transition: all .4s ease; font-size:18px;
+}
+.project:hover .arrow-go{
+  background: var(--ink); color:#fff; transform: rotate(-45deg);
+}
+@media (max-width: 1000px){
+  .project{ grid-template-columns: 1fr; gap:12px; padding:28px 12px; }
+  .project .pname{ font-size:24px; }
+  .project .ptags{ justify-content:flex-start; }
+  .project .arrow-go{ display:none; }
+}
+
+/* Featured Projects Cards */
+.featured{
+  display:grid; grid-template-columns: 1.2fr .8fr;
+  gap: 28px; margin-top: 80px;
+}
+.feat-card{
+  border-radius: var(--radius); overflow:hidden;
+  position:relative; padding: 50px 44px; min-height: 420px;
+  background: var(--bg-3);
+  display:flex; flex-direction:column; justify-content:space-between;
+  transition: transform .6s cubic-bezier(.2,.8,.2,1);
+}
+.feat-card:hover{ transform: translateY(-6px); }
+.feat-card.dark{ background: var(--ink); color: #fff; }
+.feat-card.accent{ background: linear-gradient(135deg, #ffe7d6, #ffd4b8); }
+.feat-card.green{ background: linear-gradient(135deg, #d6eadf, #c2dfcd); }
+.feat-card .feat-cat{
+  font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  font-weight:600; opacity:.7; margin-bottom:18px;
+}
+.feat-card h3{
+  font-family:'Fraunces',serif; font-size: clamp(28px,3vw,46px);
+  font-weight:500; letter-spacing:-.02em; line-height:1.05;
+  margin-bottom: 14px;
+}
+.feat-card p{ font-size:15px; line-height:1.55; opacity:.78; max-width: 90%; }
+.feat-card .meta{
+  display:flex; gap:22px; margin-top: 36px; flex-wrap:wrap;
+}
+.feat-card .meta div{ font-size:13px; opacity:.8; }
+.feat-card .meta div b{ display:block; font-family:'Fraunces',serif; font-size:24px; font-weight:500; }
+@media (max-width: 1000px){ .featured{ grid-template-columns: 1fr; } }
+
+/* ===================== CASE STUDY ===================== */
+.case{
+  background: var(--ink); color: #fff; border-radius: 36px;
+  margin: 0 48px; padding: 100px 80px;
+  position: relative; overflow: hidden;
+}
+.case::before{
+  content:""; position:absolute; top:-200px; right:-200px;
+  width:600px; height:600px; border-radius:50%;
+  background: radial-gradient(circle, rgba(255,91,31,.4), transparent 70%);
+  filter: blur(20px);
+}
+.case-grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  position:relative; z-index:1;
+}
+.case h2{
+  font-family:'Fraunces',serif; font-size: clamp(36px,5vw,72px);
+  font-weight:500; line-height:1; letter-spacing:-.03em;
+  margin-bottom: 24px;
+}
+.case h2 em{ color: var(--accent-2); font-style:italic; font-weight:400; }
+.case-eyebrow{ color: var(--accent-2); font-size:12px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; margin-bottom:16px; }
+.case p{ color: rgba(255,255,255,.7); font-size:17px; line-height:1.65; margin-bottom: 18px; }
+.case-stats{
+  display:grid; grid-template-columns: 1fr 1fr; gap:0;
+  border-top:1px solid rgba(255,255,255,.12); border-left:1px solid rgba(255,255,255,.12);
+}
+.case-stats > div{
+  padding: 32px;
+  border-right:1px solid rgba(255,255,255,.12);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.case-stats b{
+  font-family:'Fraunces',serif; font-size: 56px; font-weight:500;
+  display:block; margin-bottom:8px; letter-spacing:-.02em;
+  background: linear-gradient(135deg, #fff, var(--accent-2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.case-stats span{ font-size:13px; opacity:.7; text-transform:uppercase; letter-spacing:.1em; }
+@media (max-width: 1000px){
+  .case{ margin:0 22px; padding: 60px 30px; }
+  .case-grid{ grid-template-columns: 1fr; gap:40px; }
+  .case-stats b{ font-size: 36px; }
+}
+
+/* ===================== SKILLS ===================== */
+.skills-grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap:80px;
+}
+.skill-row{
+  margin-bottom: 28px;
+}
+.skill-row .top{
+  display:flex; justify-content:space-between; align-items:baseline; margin-bottom: 10px;
+}
+.skill-row .top b{
+  font-family:'Fraunces',serif; font-size:22px; font-weight:500; letter-spacing:-.02em;
+}
+.skill-row .top span{
+  font-family:'JetBrains Mono', monospace; font-size:13px; color: var(--muted);
+}
+.bar{
+  height: 4px; background: var(--bg-3); border-radius:100px; overflow:hidden;
+}
+.bar-fill{
+  height:100%; width:0; background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius:100px;
+}
+.cert-list{ display:flex; flex-direction:column; gap: 14px; }
+.cert{
+  display: grid; grid-template-columns: 56px 1fr auto;
+  gap: 18px; align-items:center;
+  background: var(--bg-2); padding: 18px 22px;
+  border-radius: var(--radius-sm); border: 1px solid var(--line);
+  transition: all .4s;
+}
+.cert:hover{ transform: translateX(8px); border-color: var(--accent); box-shadow: var(--shadow-sm); }
+.cert .icon{
+  width:56px; height:56px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent-soft), #ffe1cb);
+  display:flex; align-items:center; justify-content:center; font-size:22px;
+}
+.cert h4{ font-size:15px; font-weight:600; margin-bottom: 4px; }
+.cert p{ font-size:12.5px; color: var(--muted); }
+.cert .year{
+  font-family:'JetBrains Mono', monospace; font-size:13px; color: var(--ink-2);
+  font-weight:500;
+}
+@media (max-width: 900px){ .skills-grid{ grid-template-columns: 1fr; gap: 50px; } }
+
+/* ===================== PROCESS ===================== */
+.process{
+  background: var(--bg-3);
+}
+.process-grid{
+  display:grid; grid-template-columns: repeat(4,1fr); gap: 0;
+  border-top: 1px solid var(--line);
+}
+.step{
+  padding: 50px 32px;
+  border-right:1px solid var(--line);
+  position: relative; background: transparent;
+  transition: background .5s;
+}
+.step:last-child{ border-right:none; }
+.step:hover{ background: var(--bg-2); }
+.step .stnum{
+  font-family:'Fraunces',serif; font-size: 90px; font-weight:500;
+  line-height:1; letter-spacing:-.04em;
+  background: linear-gradient(180deg, var(--ink), transparent);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  opacity:.18; margin-bottom: 24px;
+  transition: all .5s ease;
+}
+.step:hover .stnum{
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  opacity:1;
+}
+.step h3{
+  font-family:'Fraunces',serif; font-size: 24px; font-weight:500;
+  letter-spacing:-.02em; margin-bottom: 14px;
+}
+.step p{ font-size: 14px; color: var(--muted); line-height: 1.55; }
+@media (max-width: 1000px){ .process-grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 600px){ .process-grid{ grid-template-columns: 1fr; } }
+
+
+/* ===================== CONTACT ===================== */
+.contact{
+  background: linear-gradient(135deg, var(--ink) 0%, #1f1d1b 100%);
+  color:#fff; position:relative; overflow:hidden;
+}
+.contact::before{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255,91,31,.18), transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(255,180,60,.12), transparent 50%);
+}
+.contact-inner{ position:relative; z-index:1; max-width:1400px; margin: 0 auto; }
+.contact-grid{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: start;
+}
+.contact h2{
+  font-family:'Fraunces',serif; font-size: clamp(48px, 7vw, 110px);
+  font-weight:500; line-height:.94; letter-spacing:-.03em;
+}
+.contact h2 em{
+  font-style: italic; font-weight: 400;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.contact-detail{
+  display:flex; flex-direction:column; gap: 26px;
+  padding-top: 36px;
+}
+.contact-row{
+  display:grid; grid-template-columns: 80px 1fr;
+  gap: 28px; padding: 22px 0;
+  border-top: 1px solid rgba(255,255,255,.1);
+  align-items: baseline;
+}
+.contact-row span{ font-size: 12px; letter-spacing:.18em; text-transform:uppercase; opacity:.55; }
+.contact-row a, .contact-row b{
+  font-family:'Fraunces',serif; font-size: 22px; font-weight:500;
+  letter-spacing: -.01em; color:#fff; transition: color .3s;
+}
+.contact-row a:hover{ color: var(--accent-2); }
+@media (max-width: 1000px){
+  .contact-grid{ grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ===================== FOOTER ===================== */
+.footer{
+  background: var(--ink); color: rgba(255,255,255,.6);
+  padding: 40px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  font-size: 13px;
+}
+.footer a{ color: rgba(255,255,255,.85); transition: color .3s; }
+.footer a:hover{ color: var(--accent-2); }
+.back-top{
+  display:inline-flex; align-items:center; gap:8px;
+  cursor: pointer; transition: transform .3s;
+}
+.back-top:hover{ transform: translateY(-3px); color: var(--accent-2); }
+
+@media (max-width:900px){
+  #experience [style*="grid-template-columns:180px"]{
+    grid-template-columns:1fr!important;gap:12px!important;
+  }
+}
+/* ===================== ANIMATIONS / REVEAL ===================== */
+.reveal{ opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(.2,.8,.2,1); }
+.reveal.in{ opacity: 1; transform: translateY(0); }
+
+.split-text .word{ display: inline-block; overflow:hidden; padding-bottom:.05em; }
+.split-text .word > span{ display: inline-block; transform: translateY(110%); will-change: transform; }
 </style>
 </head>
 <body>
@@ -254,40 +999,535 @@ a{ color:inherit; text-decoration:none; }
   </div>
   <div class="hero-inner">
     <div class="hero-tag reveal"><span class="live"></span> Open to Work — Srinagar · Remote · Hybrid · 2026</div>
-<!-- (rest of original body omitted for brevity) -->
+    <h1 class="hero-title split-text">
+      <span class="ln"><span>Aarif Hussain</span></span>
+      <span class="ln"><span><em>MEPF Design</em></span></span>
+      <span class="ln"><span>Engineer.</span></span>
+    </h1>
+    <p class="hero-sub reveal">Accomplished MEPF Design Engineer with 4+ years of end-to-end experience across healthcare, infrastructure, telecom, and cultural projects in India and the Middle East. Skilled in electrical systems, HVAC (HAP), lighting (Dialux), BMS, fire alarm integration, and theatre engineering, with designs consistently compliant with NFPA, ASHRAE, NBC, IEC, and Saudi Civil Defense standards.</b></p>
+    <div class="hero-cta reveal">
+      <a href="#projects" class="btn btn-primary"><span>View Projects ↗</span></a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="stat"><div class="num">4<span class="plus">+</span></div><div class="lbl">Years Experience</div></div>
+      <div class="stat"><div class="num">7<data-count="10"><span class="plus">+</span></div><div class="lbl">Projects Delivered</div></div>
+      <div class="stat"><div class="num">2<data-count="2"><span class="plus"></span></div><div class="lbl">Countries</div></div>
+      <div class="stat"><div class="num">500<span style="color:var(--accent);">+</span></div><div class="lbl">Connections</div></div>
+    </div>
+  </div>
+  <div class="scroll-indicator"><div class="line"></div>Scroll</div>
+</section>
 
-<!-- Script: prepend TransArab Design Consultancy experience entry to #experience -->
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  try{
-    var html = '\n<div class="exp-entry" style="margin-bottom:24px; padding:20px; border-radius:14px; background:var(--bg-2); border:1px solid var(--line);">\n  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">\n    <div>\n      <div style="font-family:Fraunces, serif; font-weight:600; font-size:18px;">Design Engineer — TransArab Design Consultancy</div>\n      <div style="font-size:13px; color:var(--muted); margin-top:6px;">Srinagar, Jammu and Kashmir · Jun 2026 — Present</div>\n    </div>\n  </div>\n  <p style="margin-top:12px; color:var(--muted);">MEPF design & coordination for HVAC, plumbing, electrical and fire safety; preparing drawings, calculations and coordinating with architects and contractors.</p>\n</div>\n';
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>HVAC Design</span><span>Fire Alarm &amp; Safety</span><span>Electrical Distribution</span><span>Lighting Design (Dialux)</span><span>BMS Systems</span><span>MEP Coordination</span>
+    <span>HVAC Design</span><span>Fire Alarm &amp; Safety</span><span>Electrical Distribution</span><span>Lighting Design (Dialux)</span><span>BMS Systems</span><span>MEP Coordination</span>
+  </div>
+</div>
 
-    var exp = document.getElementById('experience');
-    if(exp){
-      var container = exp.querySelector('.section-inner') || exp;
-      var temp = document.createElement('div');
-      temp.innerHTML = html;
-      var first = temp.firstElementChild;
-      if(first){
-        container.insertBefore(first, container.firstChild);
-      }
-    } else {
-      // create a new experience section at top of main content
-      var section = document.createElement('section');
-      section.id = 'experience';
-      section.className = 'section';
-      section.innerHTML = '<div class="section-inner">' + html + '</div>';
-      // insert after hero if present, otherwise at body start
-      var hero = document.getElementById('home');
-      if(hero && hero.parentNode){
-        hero.parentNode.insertBefore(section, hero.nextSibling);
-      } else {
-        document.body.insertBefore(section, document.body.firstChild);
-      }
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow reveal">02 — Services</div>
+        <h2 class="section-title reveal">Core <em>engineering expertise.</em></h2>
+      </div>
+      <p class="section-desc reveal">End-to-end MEPF design and coordination across healthcare, infrastructure and cultural projects — combining software precision, international code compliance and multi-discipline teamwork.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;" class="reveal">
+      <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:40px 34px;transition:transform .4s,box-shadow .4s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:36px;margin-bottom:20px;">🌡️</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;letter-spacing:-.02em;margin-bottom:14px;">HVAC &amp; Load Analysis</h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.65;">Full HVAC system design using Carrier HAP for accurate load calculations, energy simulation and equipment sizing. Compliant with ASHRAE, NBC and ISHRAE standards across healthcare and commercial projects.</p>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:40px 34px;transition:transform .4s,box-shadow .4s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:36px;margin-bottom:20px;">⚡</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;letter-spacing:-.02em;margin-bottom:14px;">Electrical Distribution Design</h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.65;">LV/HT electrical system design including cable sizing, earthing, breaker selection, panel design and AutoCAD single-line drawings — ensuring safety, reliability and code compliance with IEC and IS standards.</p>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:40px 34px;transition:transform .4s,box-shadow .4s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:36px;margin-bottom:20px;">🔥</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;letter-spacing:-.02em;margin-bottom:14px;">Fire Alarm &amp; Safety Systems</h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.65;">Design of NFPA-compliant fire alarm panels, sprinkler controls, emergency lighting, PA systems and detection layouts — delivered for hospitals, tunnels and high-security infrastructure across India and Saudi Arabia.</p>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:40px 34px;transition:transform .4s,box-shadow .4s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:36px;margin-bottom:20px;">💡</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;letter-spacing:-.02em;margin-bottom:14px;">Lighting Design (Dialux)</h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.65;">Complete lighting layout and lux-level analysis using Dialux software, ensuring optimal illumination, energy efficiency and code compliance for healthcare facilities, commercial spaces and public buildings.</p>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:40px 34px;transition:transform .4s,box-shadow .4s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:36px;margin-bottom:20px;">🏢</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;letter-spacing:-.02em;margin-bottom:14px;">Building Management Systems</h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.65;">BMS architecture for centralised HVAC, lighting and energy management. Includes CCTV surveillance planning, structured cabling (IDF/MDF), and BMS/SCADA interface design for smart facility operations.</p>
+      </div>
+      <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:40px 34px;transition:transform .4s,box-shadow .4s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:36px;margin-bottom:20px;">📋</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;letter-spacing:-.02em;margin-bottom:14px;">Project Management &amp; Coordination</h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.65;">End-to-end MEP project coordination, BOQ preparation, technical report writing and interdisciplinary liaison with architects, civil and structural teams. Experienced across Fast Planets Co. and KashmirandCo projects.</p>
+      </div>
+    </div>
+    <style>@media(max-width:900px){#services .reveal > div{grid-template-columns:1fr!important;}}</style>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section projects" id="projects">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow reveal">03 — Key Projects</div>
+        <h2 class="section-title reveal">Selected <em>project portfolio.</em></h2>
+      </div>
+      <p class="section-desc reveal">A curated cross-section of delivered work — spanning cultural heritage institutions, healthcare facilities, grid infrastructure and Vision 2030 mega-projects across India and Saudi Arabia.</p>
+    </div>
+
+    <div class="featured">
+      <div class="feat-card dark reveal">
+        <div>
+          <div class="feat-cat" style="color:var(--accent-2);">🏛️ Cultural Heritage · Current</div>
+          <h3>MiSK Heritage Institute, Diriyah, Riyadh</h3>
+          <p>Technical coordination of specialist systems for a flagship Saudi Vision 2030 cultural venue — including production lighting infrastructure (DMX/sACN), acoustic enhancement for the Black Box Theatre, stage engineering systems (hoists, rigging, retractable seating), and compliance with NR25 noise criteria and international standards.</p>
+        </div>
+        <div class="meta">
+          <div><b>Jan 2026</b>Present</div>
+          <div><b>DMX/sACN</b>Lighting Networks</div>
+          <div><b>AES</b>Acoustic System</div>
+        </div>
+      </div>
+      <div class="feat-card accent reveal">
+        <div>
+          <div class="feat-cat">🏥 Healthcare · Completed</div>
+          <h3>Dr. Usmani Gani Hospital, Kupwara, J&amp;K</h3>
+          <p>End-to-end MEP planning for a modern multi-specialty hospital — HVAC, fire protection, fire alarm, electrical distribution, ELV systems and plumbing. Coordinated across architectural, structural and services disciplines using AutoCAD and HAP 5.1, compliant with NBC, NFPA, ASHRAE, IEC and IPC.</p>
+        </div>
+        <div class="meta">
+          <div><b>Jul 2025</b>Mar 2026</div>
+          <div><b>NBC</b>Code Basis</div>
+          <div><b>NFPA / ASHRAE</b>Compliance</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-list" style="margin-top:80px;">
+      <div class="project reveal">
+        <div class="pnum">/01</div>
+        <div class="pname">King Salman Park – CP02 Tunnels &amp; Bridges <span class="pcat">🏗️ Infrastructure</span></div>
+        <div class="ploc">📍 Saudi Arabia</div>
+        <div class="ptags"><span class="ptag">NFPA Fire Alarm</span><span class="ptag">BMS/SCADA</span><span class="ptag">ELV Layouts</span><span class="ptag">PLC Integration</span></div>
+        <div class="arrow-go">↗</div>
+      </div>
+      <div class="project reveal">
+        <div class="pnum">/02</div>
+        <div class="pname">AMAALA Shared Facility Hub <span class="pcat">🌆 High-Security Infrastructure</span></div>
+        <div class="ploc">📍 Saudi Arabia</div>
+        <div class="ptags"><span class="ptag">BMS Architecture</span><span class="ptag">CCTV</span><span class="ptag">Structured Cabling</span><span class="ptag">Fire Alarm</span></div>
+        <div class="arrow-go">↗</div>
+      </div>
+      <div class="project reveal">
+        <div class="pnum">/03</div>
+        <div class="pname">RDSS – KPDCL Distribution Grid Modernisation <span class="pcat">⚡ Grid Infrastructure</span></div>
+        <div class="ploc">📍 Jammu &amp; Kashmir, India</div>
+        <div class="ptags"><span class="ptag">AutoCAD HT/LT SLDs</span><span class="ptag">Smart Metering</span><span class="ptag">Distribution Design</span></div>
+        <div class="arrow-go">↗</div>
+      </div>
+      <div class="project reveal">
+        <div class="pnum">/04</div>
+        <div class="pname">ULDC Phase-III – Northern Region <span class="pcat">🔌 SCADA/EMS</span></div>
+        <div class="ploc">📍 Northern India</div>
+        <div class="ptags"><span class="ptag">SCADA/EMS Evaluation</span><span class="ptag">Switchyard Inspection</span><span class="ptag">Technical Reports</span></div>
+        <div class="arrow-go">↗</div>
+      </div>
+      <div class="project reveal">
+        <div class="pnum">/05</div>
+        <div class="pname">Al Hayat Hospital &amp; Wullar Medical Center <span class="pcat">🏥 Healthcare</span></div>
+        <div class="ploc">📍 Jammu &amp; Kashmir, India</div>
+        <div class="ptags"><span class="ptag">HVAC</span><span class="ptag">Electrical</span><span class="ptag">Fire Alarm</span><span class="ptag">PA Systems</span><span class="ptag">Dialux Lighting</span></div>
+        <div class="arrow-go">↗</div>
+      </div>
+      <div class="project reveal">
+        <div class="pnum">/06</div>
+        <div class="pname">Dr. Mukhtiyar Diagnostic Lab <span class="pcat">🔬 Lab Infrastructure</span></div>
+        <div class="ploc">📍 Srinagar, J&amp;K</div>
+        <div class="ptags"><span class="ptag">Distribution Panels</span><span class="ptag">Cable Sizing</span><span class="ptag">Fire Detection</span><span class="ptag">Emergency Lighting</span></div>
+        <div class="arrow-go">↗</div>
+      </div>
+      <div class="project reveal">
+        <div class="pnum">/07</div>
+        <div class="pname">Pizza Express Cafés <span class="pcat">🍕 Commercial</span></div>
+        <div class="ploc">📍 Saudi Arabia</div>
+        <div class="ptags"><span class="ptag">Commercial Kitchen HVAC</span><span class="ptag">Exhaust Hoods</span><span class="ptag">ASHRAE 62.1</span><span class="ptag">NFPA 96</span></div>
+        <div class="arrow-go">↗</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="case reveal" id="case">
+  <div class="case-grid">
+    <div>
+      <div class="case-eyebrow">04 — Project Focus</div>
+      <h2>MiSK Heritage Institute — <em>integrated stage &amp; MEP systems.</em></h2>
+      <p>At MiSK Heritage Institute, Diriyah, the engineering brief demanded cultural sensitivity alongside world-class technical performance. The MEP package integrates production lighting, resilient critical power, acoustic enhancement and specialist stage engineering within a rigorously coordinated environment aligned with the project's Vision 2030 ambitions.</p>
+      <p>Key design priorities: UPS-backed support for all critical and life-safety loads, DMX/sACN-ready control infrastructure for theatrical lighting scenes, and full multi-discipline coordination that preserves both operational flexibility and zero-defect compliance — from concept through to construction issue.</p>
+      <a href="#contact" class="btn btn-primary" style="margin-top:24px;background:#fff;color:var(--ink);"><span>Discuss a Similar Project →</span></a>
+    </div>
+    <div class="case-stats">
+      <div><b>DMX</b><span>Lighting Control</span></div>
+      <div><b>sACN</b><span>Network Integration</span></div>
+      <div><b>AES</b><span>Acoustic Enhancement</span></div>
+      <div><b>NR25</b><span>Noise Compliance</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience" style="background:var(--bg-3);">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow reveal">05 — Experience</div>
+        <h2 class="section-title reveal">Where I've <em>worked.</em></h2>
+      </div>
+      <p class="section-desc reveal">A track record built across fast-growing engineering firms and government institutions — spanning design, coordination, training and hands-on field exposure.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line);">
+
+      <div class="reveal" style="display:grid;grid-template-columns:180px 1fr;gap:40px;padding:48px 0;border-bottom:1px solid var(--line);">
+        <div>
+          <div style="font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em;">Sep 2023 – Present</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">2 yrs 9 mos</div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
+            <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#ff6b35,#ff9a3c);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🌐</div>
+            <div>
+              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-.02em;">Senior Project Coordinator</div>
+              <div style="font-size:14px;color:var(--muted);margin-top:2px;">Fast Planets Co. Ltd. · Full-time · Riyadh, Saudi Arabia (Remote)</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:680px;">Coordinating MEP and ELV systems for major Saudi Vision 2030 projects including MiSK Heritage Institute and King Salman Park. Responsibilities span project planning, technical documentation, multi-discipline coordination and client communication across healthcare, infrastructure and cultural venues.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;">
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">Project Management</span>
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">Telecommunications</span>
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">BMS</span>
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">ELV Systems</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:180px 1fr;gap:40px;padding:48px 0;border-bottom:1px solid var(--line);">
+        <div>
+          <div style="font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em;">Jun 2022 – Present</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">4 yrs</div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
+            <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#8b1a1a,#c44);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">⚡</div>
+            <div>
+              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-.02em;">Lead Electrical Engineer</div>
+              <div style="font-size:14px;color:var(--muted);margin-top:2px;">KashmirandCo Design and Engineering Pvt. Ltd. · Full-time · Srinagar, J&amp;K (On-site)</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:680px;">Leading electrical and MEP design for healthcare facilities, diagnostic labs and grid infrastructure projects. Work includes lighting design (Dialux), HVAC load analysis (Carrier HAP), electrical distribution design, fire alarm integration, and AutoCAD documentation for RDSS/KPDCL distribution upgrades.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;">
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">Carrier HAP</span>
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">Dialux</span>
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">Electro-Mechanical Design</span>
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">AutoCAD MEP</span>
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">Fire Alarm &amp; Safety</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:180px 1fr;gap:40px;padding:48px 0;border-bottom:1px solid var(--line);">
+        <div>
+          <div style="font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em;">Feb 2021 – Nov 2021</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">10 mos</div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
+            <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#3a7bd5,#5a9ef0);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎓</div>
+            <div>
+              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-.02em;">Trainer</div>
+              <div style="font-size:14px;color:var(--muted);margin-top:2px;">Acensive Educare Pvt. Ltd. · Full-time · Srinagar (On-site)</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:680px;">Delivered technical training in electrical engineering fundamentals and practical systems. Developed curriculum and instructional materials for students pursuing engineering careers.</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:180px 1fr;gap:40px;padding:48px 0;border-bottom:1px solid var(--line);">
+        <div>
+          <div style="font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em;">Jan 2019 – Feb 2019</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">2 mos</div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
+            <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1a6b3a,#2f9d57);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🏭</div>
+            <div>
+              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-.02em;">Internship Trainee</div>
+              <div style="font-size:14px;color:var(--muted);margin-top:2px;">J&amp;K Power Development Department · Bemina, Srinagar (On-site)</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:680px;">Operation and maintenance of 132/33KV Grid Station and Power System Network. Hands-on exposure to substation operations and HV switchgear.</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:180px 1fr;gap:40px;padding:48px 0;">
+        <div>
+          <div style="font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em;">Jul 2014 – Aug 2014</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">2 mos</div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
+            <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1a6b3a,#2f9d57);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💧</div>
+            <div>
+              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-.02em;">Internship Trainee</div>
+              <div style="font-size:14px;color:var(--muted);margin-top:2px;">JKPDCL · USHP-II Kangan (On-site)</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:680px;">Study of the Electromechanical System of 3×35MW USHP-II Kangan hydroelectric power plant — gaining foundational exposure to large-scale generation and power systems.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow reveal">06 — Expertise</div>
+        <h2 class="section-title reveal">Skills &amp; <em>certifications.</em></h2>
+      </div>
+      <p class="section-desc reveal">Applied engineering expertise across tools, international codes and sector-specific methods — built through 4+ years on live projects across India and the Middle East.</p>
+    </div>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-row reveal"><div class="top"><b>MEP System Design</b><span>95%</span></div><div class="bar"><div class="bar-fill" data-fill="95"></div></div></div>
+        <div class="skill-row reveal"><div class="top"><b>HVAC Load Analysis (Carrier HAP)</b><span>92%</span></div><div class="bar"><div class="bar-fill" data-fill="92"></div></div></div>
+        <div class="skill-row reveal"><div class="top"><b>Electrical Distribution Design</b><span>90%</span></div><div class="bar"><div class="bar-fill" data-fill="90"></div></div></div>
+        <div class="skill-row reveal"><div class="top"><b>Fire Alarm &amp; Safety Systems</b><span>88%</span></div><div class="bar"><div class="bar-fill" data-fill="88"></div></div></div>
+        <div class="skill-row reveal"><div class="top"><b>Lighting Design (Dialux)</b><span>85%</span></div><div class="bar"><div class="bar-fill" data-fill="85"></div></div></div>
+        <div class="skill-row reveal"><div class="top"><b>Building Management Systems</b><span>80%</span></div><div class="bar"><div class="bar-fill" data-fill="80"></div></div></div>
+        <div class="skill-row reveal"><div class="top"><b>AutoCAD MEP</b><span>88%</span></div><div class="bar"><div class="bar-fill" data-fill="88"></div></div></div>
+        <div class="skill-row reveal"><div class="top"><b>Project Management &amp; Technical Reports</b><span>82%</span></div><div class="bar"><div class="bar-fill" data-fill="82"></div></div></div>
+      </div>
+      <div class="cert-list">
+        <div class="cert reveal">
+          <div class="icon">🏗️</div>
+          <div><h4>HVAC with HAP Excel AutoCAD | Manual Calculations</h4><p>Udemy · Jul 2024</p></div>
+          <div class="year">2024</div>
+        </div>
+        <div class="cert reveal">
+          <div class="icon">⚙️</div>
+          <div><h4>Learning SOLIDWORKS Electrical</h4><p>LinkedIn · Jun 2025</p></div>
+          <div class="year">2025</div>
+        </div>
+        <div class="cert reveal">
+          <div class="icon">📐</div>
+          <div><h4>Cert Prep: Revit for Electrical Design Professional</h4><p>LinkedIn · Jun 2025</p></div>
+          <div class="year">2025</div>
+        </div>
+        <div class="cert reveal">
+          <div class="icon">🔥</div>
+          <div><h4>AutoCAD: Creating Sprinkler and Fire-Alarm Systems</h4><p>LinkedIn · Jun 2023</p></div>
+          <div class="year">2023</div>
+        </div>
+        <div class="cert reveal">
+          <div class="icon">⚡</div>
+          <div><h4>AutoCAD MEP Essential Training</h4><p>LinkedIn · May 2023</p></div>
+          <div class="year">2023</div>
+        </div>
+        <div class="cert reveal">
+          <div class="icon">📡</div>
+          <div><h4>IoT Foundations: Fundamentals</h4><p>LinkedIn · Jun 2023</p></div>
+          <div class="year">2023</div>
+        </div>
+        <div class="cert reveal">
+          <div class="icon">🤖</div>
+          <div><h4>Artificial Intelligence Foundations: Thinking Machines</h4><p>LinkedIn · May 2023</p></div>
+          <div class="year">2023</div>
+        </div>
+        <div class="cert reveal">
+          <div class="icon">🔌</div>
+          <div><h4>Electrical Systems: Reading Drawings &amp; Schematics</h4><p>LinkedIn · May 2023</p></div>
+          <div class="year">2023</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section process" id="process">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow reveal">07 — How I Work</div>
+        <h2 class="section-title reveal">A <em>rigorous</em> process.</h2>
+      </div>
+      <p class="section-desc reveal">A structured, stage-gated workflow that reduces coordination risk and ensures quality at every milestone — from the initial brief through to defect-free handover.</p>
+    </div>
+    <div class="process-grid">
+      <div class="step reveal">
+        <div class="stnum">01</div>
+        <h3>Discovery &amp; Brief</h3>
+        <p>Understand occupancy, programme and performance targets. Identify code requirements and client priorities.</p>
+      </div>
+      <div class="step reveal">
+        <div class="stnum">02</div>
+        <h3>Concept Design</h3>
+        <p>Develop system options with load estimates, zone strategies and space planning — presented for sign-off before detailing begins.</p>
+      </div>
+      <div class="step reveal">
+        <div class="stnum">03</div>
+        <h3>Detailed Design Integration</h3>
+        <p>Develop coordinated MEP drawings, schematics, schedules and system layouts aligned with architectural intent, equipment strategy and code requirements before issue for construction.</p>
+      </div>
+      <div class="step reveal">
+        <div class="stnum">04</div>
+        <h3>Delivery &amp; Commissioning</h3>
+        <p>Site inspection, commissioning oversight, as-built updates and O&amp;M documentation. Defect-free handover guaranteed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="section-eyebrow" style="color:var(--accent-2);">08 — Get in Touch</div>
+        <h2>Let's build something <em>exceptional.</em></h2>
+        <p style="color:rgba(255,255,255,.65);font-size:18px;margin-top:24px;line-height:1.6;max-width:520px;">
+          Whether you're planning a healthcare facility, infrastructure upgrade or a Saudi Vision 2030 project — I bring MEPF expertise, multi-discipline coordination and a track record of cost-optimised, code-compliant delivery across India and the Middle East. Let's talk.
+        </p>
+        <a href="/cdn-cgi/l/email-protection#345555465d521a5c414747555d5a74514c55594458511a575b59" class="btn btn-primary" style="margin-top:36px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;">
+          <span>Start a Project →</span>
+        </a>
+      </div>
+      <div class="contact-detail reveal">
+        <div class="contact-row"><span>Email</span><a href="/cdn-cgi/l/aarifh09@gmail.com#c2a3a3b0aba4ecaab7b1b1a3abac82a7baa3afb2aea7eca1adaf"><span class="__cf_email__" data-cfemail="90f1f1e2f9f6bef8e5e3e3f1f9fed0f5e8f1fde0fcf5bef3fffd">&#160;aarifh09@gmail.com</span></a></div>
+        <div class="contact-row"><span>Phone</span><a href="tel:+91">+91 xxxxxxxxxx</a></div>
+        <div class="contact-row"><span>Location</span><b>Srinagar, J&amp;K · India</b></div>
+        <div class="contact-row"><span>LinkedIn</span><a href="https://linkedin.com/in/husheen23" target="_blank">linkedin.com/in/husheen23</a></div>
+        <div class="contact-row"><span>Status</span><b style="color:var(--accent-2);">● Available</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>© 2026 <b>Aarif Hussain.</b> MEPF Design Engineer. Crafted with precision.</div>
+  <div class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to Top ↑</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ============== LOADER ============== */
+window.addEventListener('load', ()=>{
+  const loader = document.getElementById('loader');
+  const logoSpan = document.getElementById('loaderLogo');
+  // animate logo
+  gsap.fromTo(logoSpan, {y:60}, {y:0, duration:.8, ease:'power3.out'});
+  setTimeout(()=>{
+    gsap.to(loader, {y:'-100%', duration:1, ease:'expo.inOut', onComplete:()=>loader.style.display='none'});
+    initHero();
+  }, 1700);
+});
+
+/* ============== CUSTOM CURSOR ============== */
+const cursor = document.getElementById('cursor');
+let mx=0,my=0,cx=0,cy=0;
+window.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; });
+function rafCursor(){
+  cx += (mx-cx)*.18; cy += (my-cy)*.18;
+  cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+  requestAnimationFrame(rafCursor);
+} rafCursor();
+document.querySelectorAll('a, button, .project, .feat-card, .cert, .tab-button').forEach(el=>{
+  el.addEventListener('mouseenter', ()=>cursor.classList.add('grow'));
+  el.addEventListener('mouseleave', ()=>cursor.classList.remove('grow'));
+});
+
+/* ============== NAV SCROLL ============== */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', ()=>{
+  if(window.scrollY > 50) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+/* ============== HERO INTRO ============== */
+function initHero(){
+  // Split text reveal
+  const lines = document.querySelectorAll('.hero-title .ln > span');
+  gsap.fromTo(lines, {y:'110%'}, {y:'0%', duration:1.1, ease:'expo.out', stagger:.13});
+  // hero-tag/sub/cta/stats
+  gsap.utils.toArray('.hero-tag, .hero-sub, .hero-cta, .hero-stats').forEach((el,i)=>{
+    gsap.fromTo(el, {y:30, opacity:0}, {y:0, opacity:1, duration:.9, ease:'power3.out', delay:.4+i*.12});
+  });
+  // Counters
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target = parseInt(el.dataset.count);
+    let val={n:0};
+    gsap.to(val,{n:target, duration:1.6, delay:1, ease:'power3.out',
+      onUpdate:()=>{ el.firstChild.nodeValue = Math.floor(val.n); }});
+  });
+}
+
+/* ============== SCROLL REVEALS ============== */
+gsap.registerPlugin(ScrollTrigger);
+document.querySelectorAll('.reveal').forEach(el=>{
+  ScrollTrigger.create({
+    trigger: el, start:'top 88%',
+    onEnter: ()=>{
+      el.classList.add('in');
     }
-  }catch(e){console.error('Failed to insert TransArab experience entry', e);} 
+  });
+});
+
+/* ============== SKILL BARS ============== */
+document.querySelectorAll('.bar-fill').forEach(el=>{
+  ScrollTrigger.create({
+    trigger: el, start:'top 90%',
+    onEnter: ()=>{
+      gsap.to(el, {width: el.dataset.fill+'%', duration:1.4, ease:'expo.out'});
+    }
+  });
+});
+
+/* ============== PARALLAX BLOBS ============== */
+gsap.utils.toArray('.blob').forEach((b,i)=>{
+  gsap.to(b, { y: i%2===0 ? -100 : 100, scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true } });
+});
+
+
+
+
+
+
+/* ============== SECTION TITLES STAGGER ============== */
+document.querySelectorAll('.section-title').forEach(t=>{
+  ScrollTrigger.create({
+    trigger:t, start:'top 85%',
+    onEnter:()=>{
+      gsap.fromTo(t, {y:60, opacity:0}, {y:0, opacity:1, duration:1.1, ease:'expo.out'});
+    }
+  });
 });
 </script>
 
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
