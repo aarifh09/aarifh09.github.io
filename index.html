@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
 /* ===================== RESET & GLOBAL ===================== */
-* { margin:0; padding:0; box-sizing:border-box; }
+* { margin:0; padding:0; box-sizing:border-box; min-width:0; }
 html { scroll-behavior:smooth; }
 h1 {
   line-height: 1.2;
@@ -135,12 +134,47 @@ a{ color:inherit; text-decoration:none; }
   display:inline-block; transition: transform .3s;
 }
 .nav-cta:hover .arrow{ transform: translate(2px,-2px); }
-.menu-btn{ display:none; background:none; border:none; cursor:pointer; }
+.menu-btn{
+  display:none; background:none; border:none; cursor:pointer;
+  width:36px; height:36px; padding:0; flex-shrink:0;
+  align-items:center; justify-content:center; gap:5px; flex-direction:column;
+  z-index:200;
+}
+.menu-btn span{
+  display:block; width:22px; height:2px; background:var(--ink);
+  border-radius:2px; transition: transform .3s ease, opacity .3s ease;
+}
+.menu-btn.active span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.menu-btn.active span:nth-child(2){ opacity:0; }
+.menu-btn.active span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+.mobile-nav-links{
+  display:none;
+  position:fixed; top:0; right:0; height:100vh; width:min(78vw,320px);
+  background: var(--bg-2); z-index:150;
+  flex-direction:column; gap:6px;
+  padding: 100px 32px 40px;
+  box-shadow: -12px 0 40px rgba(20,20,20,.12);
+  transform: translateX(100%);
+  transition: transform .4s cubic-bezier(.7,0,.3,1);
+}
+.mobile-nav-links.open{ transform: translateX(0); }
+.mobile-nav-links a{
+  font-size:17px; font-weight:500; color:var(--ink-2);
+  padding:14px 0; border-bottom:1px solid var(--line);
+}
+.mobile-nav-links a:hover{ color:var(--accent); }
+.mobile-nav-backdrop{
+  display:none; position:fixed; inset:0; background:rgba(10,10,10,.35);
+  z-index:140; opacity:0; transition:opacity .35s ease; pointer-events:none;
+}
+.mobile-nav-backdrop.open{ opacity:1; pointer-events:auto; }
 @media (max-width:900px){
   .nav{ padding: 18px 22px; }
   .nav.scrolled{ padding:12px 22px; }
   .nav-links{ display:none; }
   .nav-cta{ padding:8px 14px; font-size:12px; }
+  .menu-btn{ display:flex; }
+  .mobile-nav-links, .mobile-nav-backdrop{ display:flex; }
 }
 
 /* ===================== HERO ===================== */
@@ -290,19 +324,25 @@ a{ color:inherit; text-decoration:none; }
   background: var(--ink); color: var(--bg);
   padding: 26px 0; overflow:hidden; position:relative;
   border-block: 1px solid var(--ink-2);
+  isolation: isolate;
 }
 .marquee-track{
   display:flex; gap:48px; white-space:nowrap;
+  width: max-content;
   animation: scroll-x 30s linear infinite;
   font-family:'Fraunces',serif; font-size: clamp(28px,4vw,48px);
   font-weight:500; letter-spacing:-.02em;
+  will-change: transform;
+  transform: translateX(0) translateZ(0);
+  backface-visibility: hidden;
 }
-.marquee-track span{ display:inline-flex; align-items:center; gap:48px; }
+.marquee-track span{ display:inline-flex; align-items:center; gap:48px; flex-shrink:0; }
 .marquee-track span::after{
   content: "✦"; color: var(--accent); font-family: serif;
 }
 @keyframes scroll-x{
-  to { transform: translateX(-50%); }
+  from { transform: translateX(0) translateZ(0); }
+  to { transform: translateX(-50%) translateZ(0); }
 }
 
 /* ===================== SECTIONS ===================== */
@@ -782,6 +822,7 @@ a{ color:inherit; text-decoration:none; }
 }
 .case h2 em{ color: var(--accent-2); font-style:italic; font-weight:400; }
 .case-eyebrow{ color: var(--accent-2); font-size:12px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; margin-bottom:16px; }
+.case h2, .case p{ overflow-wrap: break-word; word-break: break-word; }
 .case p{ color: rgba(255,255,255,.7); font-size:17px; line-height:1.65; margin-bottom: 18px; }
 .case-stats{
   display:grid; grid-template-columns: 1fr 1fr; gap:0;
@@ -803,6 +844,10 @@ a{ color:inherit; text-decoration:none; }
   .case{ margin:0 22px; padding: 60px 30px; }
   .case-grid{ grid-template-columns: 1fr; gap:40px; }
   .case-stats b{ font-size: 36px; }
+}
+@media (max-width: 480px){
+  .case{ margin:0 14px; padding: 44px 20px; }
+  .case-stats{ grid-template-columns: 1fr 1fr; }
 }
 
 /* ===================== SKILLS ===================== */
@@ -907,7 +952,10 @@ a{ color:inherit; text-decoration:none; }
 .contact h2{
   font-family:'Fraunces',serif; font-size: clamp(48px, 7vw, 110px);
   font-weight:500; line-height:.94; letter-spacing:-.03em;
+  overflow-wrap: break-word; word-break: break-word;
 }
+.contact p{ overflow-wrap: break-word; word-break: break-word; max-width: 100%; }
+.contact-row a, .contact-row b{ overflow-wrap: break-word; word-break: break-word; }
 .contact h2 em{
   font-style: italic; font-weight: 400;
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
@@ -987,7 +1035,20 @@ a{ color:inherit; text-decoration:none; }
     <a href="#contact">Contact</a>
   </div>
   <a href="#contact" class="nav-cta">Hire Me <span class="arrow">↗</span></a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+<div class="mobile-nav-links" id="mobileNavLinks">
+  <a href="#services">Services</a>
+  <a href="#projects">Projects</a>
+  <a href="#case">Case Study</a>
+  <a href="#experience">Experience</a>
+  <a href="#skills">Skills</a>
+  <a href="#process">Process</a>
+  <a href="#contact">Contact</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -1038,7 +1099,7 @@ a{ color:inherit; text-decoration:none; }
       <p class="section-desc reveal">End-to-end MEPF design and coordination across healthcare, infrastructure and cultural projects — combining software precision, international code compliance and multi-discipline teamwork.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;" class="reveal">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;" class="reveal services-grid">
       <div style="background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:40px 34px;transition:transform .4s,box-shadow .4s;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
         <div style="font-size:36px;margin-bottom:20px;">🌡️</div>
         <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:500;letter-spacing:-.02em;margin-bottom:14px;">HVAC &amp; Load Analysis</h3>
@@ -1070,7 +1131,15 @@ a{ color:inherit; text-decoration:none; }
         <p style="font-size:14px;color:var(--muted);line-height:1.65;">End-to-end MEP project coordination, BOQ preparation, technical report writing and interdisciplinary liaison with architects, civil and structural teams. Experienced across Fast Planets Co. and KashmirandCo projects.</p>
       </div>
     </div>
-    <style>@media(max-width:900px){#services .reveal > div{grid-template-columns:1fr!important;}}</style>
+    <style>
+      @media(max-width:900px){
+        #services .services-grid{ grid-template-columns:1fr 1fr!important; gap:18px!important; }
+      }
+      @media(max-width:640px){
+        #services .services-grid{ grid-template-columns:1fr!important; }
+        #services .services-grid > div{ padding:28px 22px!important; }
+      }
+    </style>
   </div>
 </section>
 
@@ -1200,8 +1269,29 @@ a{ color:inherit; text-decoration:none; }
 
       <div class="reveal" style="display:grid;grid-template-columns:180px 1fr;gap:40px;padding:48px 0;border-bottom:1px solid var(--line);">
         <div>
-          <div style="font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em;">Sep 2023 – Present</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px;">2 yrs 9 mos</div>
+          <div style="font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em;">Jun 2026 – Present</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">3 mos</div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
+            <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#5b21b6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🏗️</div>
+            <div>
+              <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-.02em;">Senior Electrical Design Engineer</div>
+              <div style="font-size:14px;color:var(--muted);margin-top:2px;">Trans Arab Design Consultancy · Full-time · Srinagar, J&amp;K (On-site)</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--muted);line-height:1.65;max-width:680px;">Leading electrical design engineering with a focus on MEP systems integration and electro-mechanical design solutions.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;">
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">MEP</span>
+            <span style="font-size:11px;padding:4px 12px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-weight:500;">Electro-Mechanical Design</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:180px 1fr;gap:40px;padding:48px 0;border-bottom:1px solid var(--line);">
+        <div>
+          <div style="font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em;">Sep 2023 – Jun 2026</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">2 yrs 10 mos</div>
         </div>
         <div>
           <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
@@ -1223,8 +1313,8 @@ a{ color:inherit; text-decoration:none; }
 
       <div class="reveal" style="display:grid;grid-template-columns:180px 1fr;gap:40px;padding:48px 0;border-bottom:1px solid var(--line);">
         <div>
-          <div style="font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em;">Jun 2022 – Present</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px;">4 yrs</div>
+          <div style="font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.04em;">Jun 2022 – Jun 2026</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">4 yrs 1 mo</div>
         </div>
         <div>
           <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
@@ -1466,6 +1556,32 @@ window.addEventListener('scroll', ()=>{
   if(window.scrollY > 50) nav.classList.add('scrolled');
   else nav.classList.remove('scrolled');
 });
+
+/* ============== MOBILE NAV TOGGLE ============== */
+const menuBtn = document.getElementById('menuBtn');
+const mobileNavLinks = document.getElementById('mobileNavLinks');
+const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+function closeMobileNav(){
+  menuBtn.classList.remove('active');
+  mobileNavLinks.classList.remove('open');
+  mobileNavBackdrop.classList.remove('open');
+  menuBtn.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
+function toggleMobileNav(){
+  const isOpen = mobileNavLinks.classList.contains('open');
+  if(isOpen){ closeMobileNav(); }
+  else{
+    menuBtn.classList.add('active');
+    mobileNavLinks.classList.add('open');
+    mobileNavBackdrop.classList.add('open');
+    menuBtn.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
+  }
+}
+menuBtn.addEventListener('click', toggleMobileNav);
+mobileNavBackdrop.addEventListener('click', closeMobileNav);
+mobileNavLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeMobileNav));
 
 /* ============== HERO INTRO ============== */
 function initHero(){
